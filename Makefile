@@ -1,4 +1,4 @@
-artifact_name	:= template
+artifact_name	:= expenses-app
 version			:= unversioned
 
 .PHONY: test

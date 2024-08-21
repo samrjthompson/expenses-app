@@ -1,4 +1,4 @@
-package org.example.controller;
+package uk.expensesapp.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 

@@ -1,4 +1,4 @@
-package org.example.config;
+package uk.expensesapp.config;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
