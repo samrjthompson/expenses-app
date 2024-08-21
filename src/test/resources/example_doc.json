@@ -1,4 +1,4 @@
 {
-  "name": "John",
-  "dateOfBirth": "1990-01-01T00:00:00Z"
+  "_id": "expenses_id",
+  "salary": 2600
 }
