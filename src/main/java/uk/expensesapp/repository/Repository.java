@@ -35,4 +35,13 @@ public class Repository {
             throw new ServiceUnavailableException("MongoDB connection failed", ex);
         }
     }
+
+    public void upsertExpensesDocument(ExpensesDocument document) {
+        try {
+            mongoTemplate.save(document);
+        } catch (DataAccessException ex) {
+            LOGGER.error("MongoDB connection failed");
+            throw new ServiceUnavailableException("MongoDB connection failed", ex);
+        }
+    }
 }

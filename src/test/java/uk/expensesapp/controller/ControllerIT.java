@@ -2,6 +2,7 @@ package uk.expensesapp.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
@@ -32,6 +33,7 @@ import uk.expensesapp.model.response.ExpensesResponse;
 class ControllerIT {
 
     private static final String GET_EXPENSES_ENDPOINT = "/expenses/{id}";
+    private static final String PUT_EXPENSES_ENDPOINT = "/expenses/{id}";
     private static final String EXPENSES_ID = "expenses_id";
     private static final String COLLECTION_NAME = "expenses";
 
@@ -65,7 +67,6 @@ class ControllerIT {
 
         String existingDocumentJson = IOUtils.resourceToString(
                 "/example_doc.json", StandardCharsets.UTF_8);
-
         ExpensesDocument existingDocument = objectMapper.readValue(existingDocumentJson, ExpensesDocument.class);
 
         mongoTemplate.insert(existingDocument, COLLECTION_NAME);
@@ -78,5 +79,27 @@ class ControllerIT {
         result.andExpect(MockMvcResultMatchers.status().isOk());
 
         assertEquals(expectedResponse, objectMapper.readValue(result.andReturn().getResponse().getContentAsString(), ExpensesResponse.class));
+    }
+
+    @Test
+    void shouldInsertNewExpensesDocument() throws Exception {
+        // given
+        String requestBody = IOUtils.resourceToString(
+                "/request_body.json", StandardCharsets.UTF_8);
+
+        String expectedDocumentJson = IOUtils.resourceToString(
+                "/example_doc.json", StandardCharsets.UTF_8);
+        ExpensesDocument expectedDocument = objectMapper.readValue(expectedDocumentJson, ExpensesDocument.class);
+
+        // when
+        ResultActions result = mockMvc.perform(put(PUT_EXPENSES_ENDPOINT, EXPENSES_ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestBody));
+
+        // then
+        result.andExpect(MockMvcResultMatchers.status().isOk());
+
+        ExpensesDocument actualDocument = mongoTemplate.findById(EXPENSES_ID, ExpensesDocument.class);
+        assertEquals(expectedDocument, actualDocument);
     }
 }

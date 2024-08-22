@@ -9,7 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import uk.expensesapp.model.request.ExpensesRequest;
 import uk.expensesapp.model.response.ExpensesResponse;
 import uk.expensesapp.service.Service;
 
@@ -32,5 +35,16 @@ public class Controller {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(service.getExpenses(id));
+    }
+
+    @PutMapping("/expenses/{id}")
+    public ResponseEntity<Void> upsertExpenses(
+            @RequestBody ExpensesRequest request,
+            @PathVariable("id") final String id) {
+        LOGGER.info("Processing PUT expenses for id: {}", id);
+        service.upsertExpenses(request, id);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .build();
     }
 }
