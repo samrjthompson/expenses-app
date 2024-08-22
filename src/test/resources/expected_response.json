@@ -1,3 +1,5 @@
 {
-  "salary": 2600
+  "salary": 2600.0,
+  "totalExpenses": 0.0,
+  "totalIncome": 0.0
 }

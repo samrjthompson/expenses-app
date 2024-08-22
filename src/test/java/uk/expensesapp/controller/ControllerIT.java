@@ -9,7 +9,6 @@ import java.nio.charset.StandardCharsets;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -34,9 +33,7 @@ class ControllerIT {
 
     private static final String GET_EXPENSES_ENDPOINT = "/expenses/{id}";
     private static final String EXPENSES_ID = "expenses_id";
-
-    @Value("${spring.data.mongodb.database}")
-    private String collectionName;
+    private static final String COLLECTION_NAME = "expenses";
 
     @Container
     private static final MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo:7.0.12");
@@ -55,8 +52,8 @@ class ControllerIT {
 
     @BeforeEach
     void setUp() {
-        mongoTemplate.dropCollection(collectionName);
-        mongoTemplate.createCollection(collectionName);
+        mongoTemplate.dropCollection(COLLECTION_NAME);
+        mongoTemplate.createCollection(COLLECTION_NAME);
     }
 
     @Test
@@ -71,7 +68,7 @@ class ControllerIT {
 
         ExpensesDocument existingDocument = objectMapper.readValue(existingDocumentJson, ExpensesDocument.class);
 
-        mongoTemplate.insert(existingDocument, collectionName);
+        mongoTemplate.insert(existingDocument, COLLECTION_NAME);
 
         // when
         ResultActions result = mockMvc.perform(get(GET_EXPENSES_ENDPOINT, EXPENSES_ID)
