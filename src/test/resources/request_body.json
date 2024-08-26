@@ -1,5 +1,20 @@
 {
-  "salary": 2600.0,
-  "totalExpenses": 0.0,
-  "totalIncome": 0.0
+  "grossAnnualSalary": 43000,
+  "netAnnualSalary": 31272,
+  "groceries": 200,
+  "fuel": 25,
+  "bills": {
+    "rent": 475,
+    "councilTax": 73.50,
+    "car": 175,
+    "water": 19.25,
+    "energy": 65.71
+  },
+  "income": {
+    "salary": 475
+  },
+  "savings": {
+    "cashIsa": 690,
+    "stocksAndSharesIsa": 5
+  }
 }

@@ -6,7 +6,7 @@ import uk.expensesapp.model.response.ExpensesResponse;
 
 public interface IMapper {
 
-    ExpensesResponse map(ExpensesDocument expensesDocument);
+    ExpensesResponse mapResponse(ExpensesDocument expensesDocument);
 
     ExpensesDocument mapRequest(ExpensesRequest request, final String id);
 }

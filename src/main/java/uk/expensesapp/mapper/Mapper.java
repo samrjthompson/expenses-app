@@ -9,19 +9,19 @@ import uk.expensesapp.model.response.ExpensesResponse;
 public class Mapper implements IMapper {
 
     @Override
-    public ExpensesResponse map(ExpensesDocument expensesDocument) {
-        return new ExpensesResponse()
-                .salary(expensesDocument.getSalary())
-                .totalExpenses(expensesDocument.getTotalExpenses())
-                .totalIncome(expensesDocument.getTotalIncome());
+    public ExpensesResponse mapResponse(ExpensesDocument expensesDocument) {
+        return new ExpensesResponse();
     }
 
     @Override
     public ExpensesDocument mapRequest(ExpensesRequest request, final String id) {
-        return new ExpensesDocument()
-                .id(id)
-                .salary(request.getSalary())
-                .totalExpenses(request.getTotalExpenses())
-                .totalIncome(request.getTotalIncome());
+        return new ExpensesDocument(id)
+                .grossAnnualSalary(request.getGrossAnnualSalary())
+                .netAnnualSalary(request.getNetAnnualSalary())
+                .groceries(request.getGroceries())
+                .fuel(request.getFuel())
+                .bills(request.getBills())
+                .income(request.getIncome())
+                .savings(request.getSavings());
     }
 }

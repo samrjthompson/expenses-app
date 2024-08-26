@@ -1,7 +1,7 @@
 package uk.expensesapp.model.mongo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Objects;
+import java.util.Map;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -10,35 +10,78 @@ public class ExpensesDocument {
 
     @Id
     @JsonProperty("_id")
-    private String id;
-    private float salary;
+    private final String id;
+
+    // Totals
     private float totalIncome;
+    private float totalSavings;
     private float totalExpenses;
+    private float netAnnualSalary;
+    private float grossAnnualSalary;
 
-    public String getId() {
-        return id;
-    }
+    private float groceries;
+    private float fuel;
+    private float spendingMoney;
 
-    public ExpensesDocument id(String id) {
+    private Map<String, Float> bills;
+    private Map<String, Float> income;
+    private Map<String, Float> savings;
+
+    public ExpensesDocument(String id) {
         this.id = id;
+    }
+
+    public float getSpendingMoney() {
+        return spendingMoney;
+    }
+
+    public float getTotalSavings() {
+        return totalSavings;
+    }
+
+    public ExpensesDocument totalSavings(float totalSavings) {
+        this.totalSavings = totalSavings;
         return this;
     }
 
-    public float getSalary() {
-        return salary;
-    }
-
-    public ExpensesDocument salary(float salary) {
-        this.salary = salary;
+    public ExpensesDocument spendingMoney(float spendingMoney) {
+        this.spendingMoney = spendingMoney;
         return this;
     }
 
-    public float getTotalIncome() {
-        return totalIncome;
+    public float getFuel() {
+        return fuel;
     }
 
-    public ExpensesDocument totalIncome(float totalIncome) {
-        this.totalIncome = totalIncome;
+    public ExpensesDocument fuel(float fuel) {
+        this.fuel = fuel;
+        return this;
+    }
+
+    public float getGroceries() {
+        return groceries;
+    }
+
+    public ExpensesDocument groceries(float groceries) {
+        this.groceries = groceries;
+        return this;
+    }
+
+    public float getGrossAnnualSalary() {
+        return grossAnnualSalary;
+    }
+
+    public ExpensesDocument grossAnnualSalary(float grossAnnualSalary) {
+        this.grossAnnualSalary = grossAnnualSalary;
+        return this;
+    }
+
+    public float getNetAnnualSalary() {
+        return netAnnualSalary;
+    }
+
+    public ExpensesDocument netAnnualSalary(float netAnnualSalary) {
+        this.netAnnualSalary = netAnnualSalary;
         return this;
     }
 
@@ -51,16 +94,43 @@ public class ExpensesDocument {
         return this;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ExpensesDocument that = (ExpensesDocument) o;
-        return Float.compare(salary, that.salary) == 0 && Float.compare(totalIncome, that.totalIncome) == 0 && Float.compare(totalExpenses, that.totalExpenses) == 0 && Objects.equals(id, that.id);
+    public float getTotalIncome() {
+        return totalIncome;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, salary, totalIncome, totalExpenses);
+    public ExpensesDocument totalIncome(float totalIncome) {
+        this.totalIncome = totalIncome;
+        return this;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public Map<String, Float> getSavings() {
+        return savings;
+    }
+
+    public ExpensesDocument savings(Map<String, Float> savings) {
+        this.savings = savings;
+        return this;
+    }
+
+    public Map<String, Float> getIncome() {
+        return income;
+    }
+
+    public ExpensesDocument income(Map<String, Float> income) {
+        this.income = income;
+        return this;
+    }
+
+    public Map<String, Float> getBills() {
+        return bills;
+    }
+
+    public ExpensesDocument bills(Map<String, Float> bills) {
+        this.bills = bills;
+        return this;
     }
 }

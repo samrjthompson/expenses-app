@@ -1,50 +1,71 @@
 package uk.expensesapp.model.request;
 
-import java.util.Objects;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ExpensesRequest {
 
-    private float salary;
-    private float totalIncome;
-    private float totalExpenses;
+    private float netAnnualSalary;
+    private float grossAnnualSalary;
 
-    public float getSalary() {
-        return salary;
+    private float groceries;
+    private float fuel;
+
+    private final Map<String, Float> bills;
+    private final Map<String, Float> income;
+    private final Map<String, Float> savings;
+
+    public ExpensesRequest() {
+        bills = new HashMap<>();
+        income = new HashMap<>();
+        savings = new HashMap<>();
     }
 
-    public ExpensesRequest salary(float salary) {
-        this.salary = salary;
+    public Map<String, Float> getBills() {
+        return bills;
+    }
+
+    public Map<String, Float> getIncome() {
+        return income;
+    }
+
+    public Map<String, Float> getSavings() {
+        return savings;
+    }
+
+    public float getNetAnnualSalary() {
+        return netAnnualSalary;
+    }
+
+    public ExpensesRequest netAnnualSalary(float netAnnualSalary) {
+        this.netAnnualSalary = netAnnualSalary;
         return this;
     }
 
-    public float getTotalIncome() {
-        return totalIncome;
+    public float getGrossAnnualSalary() {
+        return grossAnnualSalary;
     }
 
-    public ExpensesRequest totalIncome(float totalIncome) {
-        this.totalIncome = totalIncome;
+    public ExpensesRequest grossAnnualSalary(float grossAnnualSalary) {
+        this.grossAnnualSalary = grossAnnualSalary;
         return this;
     }
 
-    public float getTotalExpenses() {
-        return totalExpenses;
+    public float getGroceries() {
+        return groceries;
     }
 
-    public ExpensesRequest totalExpenses(float totalExpenses) {
-        this.totalExpenses = totalExpenses;
+    public ExpensesRequest groceries(float groceries) {
+        this.groceries = groceries;
         return this;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ExpensesRequest that = (ExpensesRequest) o;
-        return Float.compare(salary, that.salary) == 0 && Float.compare(totalIncome, that.totalIncome) == 0 && Float.compare(totalExpenses, that.totalExpenses) == 0;
+    public float getFuel() {
+        return fuel;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(salary, totalIncome, totalExpenses);
+    public ExpensesRequest fuel(float fuel) {
+        this.fuel = fuel;
+        return this;
     }
 }
